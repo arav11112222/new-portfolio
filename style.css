@@ -1,0 +1,238 @@
+/* ============================================
+   Aarav Gupta — Portfolio Stylesheet
+   Theme: Terminal / Code Editor
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --bg: #0d0f16;
+  --panel: #161925;
+  --border: #2a2e40;
+  --text: #d9dce3;
+  --text-muted: #8b93a7;
+  --accent: #7ee787;      /* terminal green */
+  --accent-2: #f97583;    /* warm pink-red, secondary accent */
+  --amber: #e3b341;       /* traffic-light dot */
+
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-body: 'Inter', -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Fixed terminal title bar across the top of the viewport */
+body::before {
+  content: "guest@aarav-gupta:~$ ./view-portfolio.sh";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding-left: 84px;
+  background: #12141d;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+  z-index: 10;
+  letter-spacing: 0.02em;
+}
+
+/* Traffic-light dots on the title bar */
+body::after {
+  content: "";
+  position: fixed;
+  top: 16px;
+  left: 20px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent-2);
+  box-shadow: 22px 0 0 var(--amber), 44px 0 0 var(--accent);
+  z-index: 11;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(126, 231, 135, 0.05), transparent 40%),
+    radial-gradient(circle at 85% 30%, rgba(249, 117, 131, 0.05), transparent 40%),
+    var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  padding: 84px 20px 60px;
+}
+
+/* Main content card — targets the outermost content regardless of wrapper */
+body > *:not(script):not(style) {
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Wrap the whole thing visually using the first heading's container feel */
+h1 {
+  font-family: var(--font-mono);
+  font-size: clamp(28px, 5vw, 40px);
+  font-weight: 700;
+  color: #ffffff;
+  max-width: 700px;
+  margin: 0 auto 4px;
+  letter-spacing: -0.01em;
+}
+
+h1::after {
+  content: "_";
+  color: var(--accent);
+  animation: blink 1.1s steps(1) infinite;
+  margin-left: 4px;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* Profile image */
+img {
+  display: block;
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 0 4px rgba(126, 231, 135, 0.12);
+  margin: 8px auto 28px;
+}
+
+/* Section headers styled as shell prompts */
+h2 {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: lowercase;
+  color: var(--accent);
+  letter-spacing: 0.03em;
+  max-width: 700px;
+  margin: 40px auto 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+h2::before {
+  content: "$ cat ";
+  color: var(--text-muted);
+}
+
+/* Body paragraphs */
+p {
+  max-width: 700px;
+  margin: 0 auto 16px;
+  color: var(--text);
+  font-size: 15px;
+}
+
+/* Lists */
+ul {
+  max-width: 700px;
+  margin: 0 auto 16px;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  color: var(--text);
+}
+
+li::before {
+  content: ">";
+  position: absolute;
+  left: 0;
+  color: var(--accent-2);
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+/* Numbered "Others" list — keep numbers visible for nav links */
+ol {
+  max-width: 700px;
+  margin: 0 auto 16px;
+  padding-left: 0;
+  list-style: none;
+  counter-reset: nav-counter;
+}
+
+ol li {
+  counter-increment: nav-counter;
+  padding-left: 28px;
+}
+
+ol li::before {
+  content: "[" counter(nav-counter) "]";
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+/* Dividers rendered as dashed terminal rules */
+hr {
+  max-width: 700px;
+  margin: 32px auto;
+  border: none;
+  border-top: 1px dashed var(--border);
+}
+
+/* Links */
+a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+a:hover {
+  color: var(--accent-2);
+  border-bottom-color: var(--accent-2);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  body::before {
+    font-size: 11px;
+    padding-left: 76px;
+  }
+  img {
+    width: 110px;
+    height: 110px;
+  }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  h1::after {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
